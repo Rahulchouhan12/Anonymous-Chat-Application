@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anonymous Chat Application</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    h1{
+      font-size: 1.5cm;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: transparent;
+      padding: 10px;
+      color: white;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+
+    .HomeContainer {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      
+      background-image: linear-gradient(to bottom, transparent, rgba(10,8,13,255)),linear-gradient(to top, transparent, rgba(10,8,13,255)), url('{% static "backGround.jpg" %}');
+      /*
+      background-image: linear-gradient(rgba(113, 210, 173, 0.8), rgba(0, 0, 50, 0.8)),  url('{% static "backGround.jpg" %}');*/
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding-top: 50px; /* Adjusted to account for the height of the navigation bar */
+    }
+
+    .HomeContainer p {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .HomeContainer .info {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .HomeContainer .button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .HomeContainer .button-container button {
+      margin: 5px;
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #3f51b5;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .HomeContainer .button-container button:hover {
+      background-color: #303f9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="HomeContainer">
+    <nav>
+      <a href="/login">Log in</a>
+      <a href="#">Home</a>
+      <a href="about">About</a>
+      <a href="services">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div>
+      <h1>Welcome to IncognitoSphere </h1>
+      <p class="info">An anonymous chat platform exclusively for SVVV Indore college students<br> Join the conversation about education and job opportunities.<br><br>Our platform provides a secure and open environment for students to engage in meaningful conversations.</p>
+      <div class="button-container">
+       <a href="/login"> <button>Get Started</button></a>
+        <a href="about"><button>Learn More</button></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

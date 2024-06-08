@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About IncognitoSphere</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .description {
+      margin-bottom: 30px;
+    }
+
+    .description p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .discussion {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .discussion h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .discussion p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .images {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .images img {
+      max-width: 30%;
+      border-radius: 5px;
+      /*box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);*/
+      box-shadow: 0px 0px 5px;
+    }
+
+    .images img:hover{
+        box-shadow: 0px 0px 10px 5px gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>About IncognitoSphere</h1>
+    <div class="description">
+      <p>Welcome to IncognitoSphere, an anonymous chat platform exclusively for SVVV Indore college students. Our platform provides a secure and open environment for students to engage in meaningful conversations.</p>
+      <p>With IncognitoSphere, you can discuss various topics such as:</p>
+      <ul>
+        <li>Job opportunities and career guidance</li>
+        <li>Internship programs and experiences</li>
+        <li>Technical and non-technical interview doubts</li>
+        <li>General academic discussions and study tips</li>
+        <li>And much more!</li>
+      </ul>
+      <p>The platform ensures anonymity, displaying whether a user is a senior, junior, or batchmate without revealing their names. This anonymity encourages open and honest communication among students.</p>
+    </div>
+    <div class="discussion">
+      <h2>Join the Discussion</h2>
+      <p>Engage in meaningful conversations with your fellow SVVVians. Share experiences, seek advice, and connect with others anonymously. Our platform offers:</p>
+      <ul>
+        <li>Global Chat: Participate in discussions that are visible to all SVVV students. Contribute your insights and learn from others.</li>
+        <li>Private Chat: Respond to specific messages privately. Connect with users who share similar interests or seek personalized advice.</li>
+        <li>Dashboard Insights: Track the number of people viewing your posts, the number of connections you've made, and other analytics to enhance your chat experience.</li>
+      </ul>
+    </div>
+    <div class="images">
+      <img src="{% static 'globalchat.png' %}" alt="Global Chat Screenshot">
+      <img src="{% static 'privatechatSS.png' %}" alt="Private Chat Screenshot">
+      <img src="{% static 'dashboard.png' %}" alt="Dashboard Screenshot">
+    </div>
+  </div>
+</body>
+
+</html>

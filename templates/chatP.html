@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+     /* background-image: linear-gradient(rgba(113, 210, 173, 0.8), rgba(0, 0, 50, 0.8)),  url('{% static "backGround.jpg" %}');*/
+     background-color: #f4f4f4;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 87vh;
+    }
+
+    .navbar {
+      width: 20%;
+      height: 90%;
+      padding: 20px;
+      margin-right: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .nav-item {
+      margin-bottom: 10px;
+      cursor: pointer;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+
+    }
+    .nav-item a{
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .chat-box {
+      width: 60%;
+      height: 90%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+    }
+
+    .chat-name {
+     
+      top: 10px;
+      left: 10px;
+      color: orange;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chat-messages {
+      margin-top: 40px;
+      margin-bottom: 60px; /* Adjust bottom margin for input area */
+    }
+
+    .chat-message {
+      margin-bottom: 15px;
+      clear: both;
+      overflow: hidden;
+    }
+
+    .message-bubble {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+      clear: both;
+      overflow: hidden;
+    }
+
+    .user-name {
+      font-weight: bold;
+      margin-right: 10px;
+      color: #fff; /* Green color for user name */
+    }
+
+    .date-time {
+      font-size: 12px;
+      color: #ccc;
+      float: right;
+      padding-top: 5px;
+      padding-left: 5px;
+    }
+
+    .current-user-message .user-name {
+      color: #fff; /* Blue color for current user name */
+    }
+
+    .current-user-message .message-bubble {
+      background-color: #007bff;
+      color: #fff;
+      float: right;
+    }
+
+    .user-message .message-bubble {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      float: left;
+    }
+
+    .user-message .user-name {
+      color:#fff;
+    }
+
+    .input-area {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-top: 20px;
+    }
+
+    .input-area input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+      box-sizing: border-box;
+    }
+
+    .input-area button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .top-navbar {
+  width: 100%;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.top-navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.gchat{
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+      margin-bottom: 10px;
+      cursor: pointer;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+}
+
+.gchat a{
+  text-decoration: none;
+  color: #fff;
+}
+
+.gchat:hover{
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+.deletebtn{
+  background-color: red;
+  border: 0;
+  border-radius: 6px;
+  height: 30px;
+  width: 30px;
+}
+.block-btn{
+  height: 25px;
+  width: 50px;
+}
+
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+      display: none; /* Initially hidden */
+      justify-content: center;
+      align-items: center;
+      color: gray;
+    }
+    
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+    }
+    
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .popup input{
+        height: 30px;
+        margin-left: 0px;
+        margin: 10px;
+        width: 90%;
+    }
+
+@media screen and (max-width:600px){
+.container{
+  display: block;
+}
+
+.navbar{
+  height: auto;
+  width: 100%;
+}
+
+.chat-box{
+  width: 100%;
+  height: auto;
+}
+
+.input-area{
+  margin-top: 20px;
+}
+}
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+
+<body>
+  <div class="top-navbar">
+  <div class="left-section">
+    <span>Hi {{mydata.name}} !!!</span>
+  </div>
+  <div class="right-section">
+    <a href="{% url 'Profile' key=KEY %}">Profile</a>
+    <a href="/">Logout</a>
+  </div>
+</div>
+
+  <div class="container">
+    
+    <div class="navbar">
+    <div class="gchat" > <a href="{% url 'Globalchat' key=KEY %}"> Open Global Chat</a></div>
+         {% for i in users%}
+       {% if i.0.enroll != mydata.enroll %}
+       <a href="{% url 'privateChat' key=KEY rkey=i.0.enroll %}" style="text-decoration: none;font-weight: bold;"><div class="nav-item" >
+         ({{i.0.id}})
+          {% if i.0.YOP > mydata.YOP %} Junior:{{i.YOP}} {% elif i.0.YOP < mydata.YOP%} Senior:{{i.0.YOP}} 
+            {% else %} Batchmate:{{i.0.YOP}}  {% endif%}
+         {% if False%} <span style="font-size: 10px;color: orange"> ({{i.1}})</span> {% endif%}
+      </div></a>
+         {% endif%}
+      {% endfor %}  
+    
+    </div>
+    <div class="w-2/3 p-4 bg-secondary rounded-lg chat-box">
+  <!--    <div class="chat-name"><div>You are Chatting With your {% if second.YOP > mydata.YOP %} Junior of {{second.YOP}} passing Year:  {% elif second.YOP < mydata.YOP%} Senior of {{second.YOP}} Passout: 
+            {% else %} Batchmate:  {% endif%} </div><div>  
+            <a href="{% url 'block_chatter' key=KEY rkey=second.enroll %}"> 
+               <button class="block-btn" id='blockBtn'> Block </button> </a></div></div> -->
+    <div class="chat-name">
+    You are Chatting With your {% if second.YOP > mydata.YOP %} Junior of {{second.YOP}} passing Year: {% elif second.YOP < mydata.YOP %} Senior of {{second.YOP}} Passout: {% else %} Batchmate: {% endif %}
+    <div>
+        <button class="block-btn" id='blockBtn'> Block </button>
+         <div class="popup" id="blockPopup">
+    <div class="popup-content">
+      <h2 align="center">Block User</h2>
+      <form action="{% url 'block_chatter' key=KEY rkey=second.enroll %}" method="POST">
+        {% csrf_token %}
+        <label for="name" style="margin-left: 0px;">  Why You blocking this User :</label>
+        <input type="text" name="Reason" id="name" required placeholder="give reason for blocking for your reference only">
+        <br>
+        <button style="height: 30px;float: right; width: 80px;background-color: #f6f6f6;" type="submit" >Block</button>
+        <button type="button" class="popup-close" onclick="closePopup()">Cancel</button>
+      </form>
+    </div>
+  </div>
+    </div>
+</div>
+
+      <div class="chat-messages overflow-y-auto">
+        {%for i in Chats %}
+
+        {% if i.sender == mydata.enroll %}
+        <div class="chat-message current-user-message">
+          <div class="message-bubble">
+            <span class="user-name"></span>  {{i.msg}}
+            <span class="date-time">{{i.time}}</span>
+          </div>
+          <a href="{% url 'delete_entry2'  key=KEY rkey=i.reciever msgid=i.id %}"> 
+          <button class="deletebtn">
+            <i class="fa fa-trash"></i>
+          </button>
+        </a>
+
+        </div>
+        
+        {% else %}
+        <div class="chat-message user-message">
+          <div class="message-bubble">
+            <span class="user-name">{% if i.yop > mydata.YOP %} Junior:  {% elif i.yop < mydata.YOP%} Senior: 
+            {% else %} Batchmate:  {% endif%} </span> {{i.msg}}
+            <span class="date-time"> {{i.time}}</span>
+          </div>
+        </div>
+
+        {% endif %}
+          {% endfor %}
+      </div>
+      <div class="input-area">
+        <form action="{% url 'privateChat' key=KEY rkey=second.enroll %}" method="POST">{% csrf_token %}
+          <input type="text"  name="messageChat" placeholder="Type your message..." class="text-secondary bg-gray-200 rounded-lg focus:outline-none focus:bg-white">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--
+<script>
+    document.getElementById('blockBtn').addEventListener('click', function() {
+        var reason = prompt('Enter reason for blocking:');
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        console.log(csrftoken); // Check if CSRF token is obtained correctly
+
+        if (reason !== null && reason.trim() !== '') {
+            // Use 'KEY' and 'second_enroll' directly from the template context
+            var blockUrl = '{% url 'block_chatter' key=KEY rkey=second.enroll %}';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', blockUrl, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert('User blocked successfully!');
+                        // You can redirect or do other actions after successful block
+                    } else {
+                        alert('Error blocking user: ' + xhr.responseText);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({ reason: reason }));
+        } else {
+            alert('Reason cannot be empty!');
+        }
+    });
+</script> -->
+ <script>
+    function openPopup() {
+      document.getElementById("blockPopup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("blockPopup").style.display = "none";
+    }
+
+    // Add click event listener to the block button
+    document.getElementById("blockBtn").addEventListener("click", openPopup);
+  </script>
+
+</body>
+
+</html>
+

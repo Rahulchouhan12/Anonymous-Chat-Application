@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Chat - Anonymous Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+       
+        @media (prefers-color-scheme: dark) {
+            .dark {
+                --bg-primary: #111827;
+                --bg-secondary: #1F2937;
+                --text-primary: #D1D5DB;
+                --text-secondary: #9CA3AF;
+            }
+        }
+
+       
+        body {
+            background-color: #111827;
+            color: #D1D5DB;
+        }
+
+        .chat-box {
+            height: 70vh;
+            overflow-y: auto;
+        }
+
+       
+        .chat-message {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .user-message {
+            justify-content: flex-start;
+        }
+
+        .current-user-message {
+            justify-content: flex-end;
+        }
+
+        
+        .message-bubble {
+            border-radius: 10px;
+            padding: 8px 12px;
+            max-width: 80%;
+        }
+
+       
+        .user-message .message-bubble {
+            background-color: #6B7280; 
+            color: #FFFFFF;
+        }
+
+        
+        .current-user-message .message-bubble {
+            background-color: #3B82F6; 
+            color: #FFFFFF;
+        }
+
+        
+        .date-time {
+            font-size: 0.8rem;
+            color: #9CA3AF;
+        }
+
+        .user-name {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="dark bg-primary text-primary">
+    <!-- Navbar -->
+    <nav class="bg-secondary p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold text-primary">{{Msg}}</div>
+            <div>
+                <a href="#" class="text-primary hover:text-blue-500 mr-4">Profile</a>
+                <a href="#" class="text-primary hover:text-blue-500">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto mt-16 flex justify-center">
+       
+        <div class="w-2/3 p-4 bg-secondary rounded-lg chat-box">
+            <h2 class="text-xl font-bold mb-4 text-primary">Global Chat</h2>
+            <div id="globalChat" class="overflow-y-auto">
+               <a href="it4.html">
+                <div class="chat-message user-message" >
+                    <div class="message-bubble">
+                        <span class="user-name">User1:</span> Can anyone suggest good job portals for software engineering roles?
+                        <span class="date-time">12:30 PM, 24 Feb 2024</span>
+                    </div>
+                </div></a>
+                 <div class="chat-message user-message" onclick="openPrivateChat()">
+                    <div class="message-bubble">
+                        <span class="user-name">User2:</span> I'm looking for internships in the field of machine learning. Any recommendations?
+                        <span class="date-time">12:30 PM, 24 Feb 2024</span>
+                    </div>
+                </div>
+                 <div class="chat-message user-message" onclick="openPrivateChat()">
+                    <div class="message-bubble">
+                        <span class="user-name">User3:</span> How can I improve my resume for data science roles?
+                        <span class="date-time">12:30 PM, 24 Feb 2024</span>
+                    </div>
+                </div>
+                 <div class="chat-message user-message" onclick="openPrivateChat()">
+                    <div class="message-bubble">
+                        <span class="user-name">User4:</span> Is it advisable to negotiate salary for entry-level positions?
+                        <span class="date-time">12:30 PM, 24 Feb 2024</span>
+                    </div>
+                </div>
+                <div class="chat-message current-user-message" onclick="openPrivateChat()">
+                    <div class="message-bubble">
+                        <span class="user-name">You:</span> I have an upcoming interview. Any tips for preparing for technical interviews?
+                        <span class="date-time">12:32 PM, 24 Feb 2024</span>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <form id="globalChatForm" class="mt-4">
+                <input type="text" id="message" name="message" placeholder="Type your message..."
+                    class="w-full px-3 py-2 text-secondary bg-gray-200 rounded-lg focus:outline-none focus:bg-white">
+                <button type="submit"
+                    class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+   
+    <script>
+        function openPrivateChat() {
+            window.location.href = "it4.html"; 
+    </script>
+</body>
+
+</html>

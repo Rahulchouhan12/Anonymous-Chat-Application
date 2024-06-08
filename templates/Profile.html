@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .profile-info {
+      margin-bottom: 30px;
+    }
+
+    .profile-info p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .dashboard {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .dashboard .statistic {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .dashboard .statistic p {
+      font-size: 16px;
+    }
+
+
+    /* New CSS styles for table */
+    .table-container {
+      margin-top: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+    }
+
+    .unblock-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .unblock-btn:hover {
+      background-color: #0056b3;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>User Profile</h1>
+
+    <div class="profile-info">
+      <p><strong>Name:</strong> {{ mydata.name }}</p>
+      <p><strong>Email:</strong> {{ mydata.email}}</p>
+      <p><strong>Batch:</strong> {{mydata.YOP}}</p>
+      <p><strong>Course:</strong> {{mydata.course}}</p>
+    </div>
+    <a href="{% url 'Globalchat' key=KEY %}" class="gchat"><button>Global Chat </button></a>
+    <div class="dashboard">
+      <h2>Dashboard</h2>
+      <div class="statistic">
+        <p>Total Post : <strong>{{total}}</strong></p>
+        <p>Total Connections: <strong>{{connection}}</strong></p>
+      </div>
+      <div class="statistic">
+        <p>Blocked Connection: <strong>{{blocks}}</strong></p>
+        <p>Blocked by Users: <strong>{{blockedby}}</strong></p>
+      </div>
+      <div class="statistic">
+        <p>Your Post: <strong>{{mypost}}</strong></p>
+        <p>Last Post on: <strong>{{last}}</strong></p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <h2>Blocked Contact</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Why Block</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in listofblocks%}
+          <tr>
+            <td>{{i.role}}</td>
+            <td>{{i.Reason}}</td>
+            <td><a href="{% url 'unblock' key=KEY uid=i.id %}"><button class="unblock-btn">Unblock</button></a></td>
+          </tr>
+         {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
